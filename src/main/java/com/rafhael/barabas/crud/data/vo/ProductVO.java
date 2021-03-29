@@ -1,4 +1,4 @@
-package com.rafhael.barabas.crud.vo;
+package com.rafhael.barabas.crud.data.vo;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;

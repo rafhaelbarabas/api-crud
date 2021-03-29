@@ -3,11 +3,10 @@ package com.rafhael.barabas.crud.services;
 import com.rafhael.barabas.crud.entities.Product;
 import com.rafhael.barabas.crud.exception.ResourceNotFoundException;
 import com.rafhael.barabas.crud.repositories.ProductRepository;
-import com.rafhael.barabas.crud.vo.ProductVO;
+import com.rafhael.barabas.crud.data.vo.ProductVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.hateoas.Link;
 import org.springframework.stereotype.Service;
 
 @Service

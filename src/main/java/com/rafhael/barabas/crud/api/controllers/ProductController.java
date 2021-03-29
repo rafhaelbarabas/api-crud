@@ -1,7 +1,8 @@
 package com.rafhael.barabas.crud.api.controllers;
 
 import com.rafhael.barabas.crud.services.ProductService;
-import com.rafhael.barabas.crud.vo.ProductVO;
+import com.rafhael.barabas.crud.data.vo.ProductVO;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -23,6 +24,7 @@ public class ProductController {
     private final ProductService service;
     private final PagedResourcesAssembler<ProductVO> assembler;
 
+    @Autowired
     public ProductController(ProductService service, PagedResourcesAssembler<ProductVO> assembler) {
         this.service = service;
         this.assembler = assembler;
@@ -30,7 +32,6 @@ public class ProductController {
 
     private void createLink(ProductVO productVO) {
         productVO.add(linkTo(methodOn(ProductController.class).findById(productVO.getId())).withSelfRel());
-
     }
 
     @GetMapping(produces = {"application/json", "application/xml", "application/x-yaml"})
@@ -38,7 +39,6 @@ public class ProductController {
                                      @RequestParam(value = "limit", defaultValue = "10") int limit,
                                      @RequestParam(value = "direction", defaultValue = "asc") String direction) {
 
-        // TODO: Criar componente para gerar o pageable, e o sort de maneira mais elegante...
         var sort = "desc".equalsIgnoreCase(direction) ? Sort.Direction.DESC : Sort.Direction.ASC;
         Pageable pageable = PageRequest.of(page, limit, Sort.by(sort, "name"));
         Page<ProductVO> products = service.findAll(pageable);

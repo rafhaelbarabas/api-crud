@@ -1,6 +1,6 @@
 package com.rafhael.barabas.crud.entities;
 
-import com.rafhael.barabas.crud.vo.ProductVO;
+import com.rafhael.barabas.crud.data.vo.ProductVO;
 import lombok.*;
 import org.modelmapper.ModelMapper;
 
