@@ -2,6 +2,7 @@ package com.rafhael.barabas.crud.services;
 
 import com.rafhael.barabas.crud.entities.Product;
 import com.rafhael.barabas.crud.exception.ResourceNotFoundException;
+import com.rafhael.barabas.crud.messages.ProductSendMessage;
 import com.rafhael.barabas.crud.repositories.ProductRepository;
 import com.rafhael.barabas.crud.data.vo.ProductVO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,10 +14,12 @@ import org.springframework.stereotype.Service;
 public class ProductService {
 
     private final ProductRepository repository;
+    private final ProductSendMessage productSendMessage;
 
     @Autowired
-    public ProductService(ProductRepository repository) {
+    public ProductService(ProductRepository repository, ProductSendMessage productSendMessage) {
         this.repository = repository;
+        this.productSendMessage = productSendMessage;
     }
 
     private ProductVO convertEntityToVO(Product product) {
@@ -29,7 +32,9 @@ public class ProductService {
 
     public ProductVO create(ProductVO productVO) {
         Product save = repository.save(convertVOToEntity(productVO));
-        return convertEntityToVO(save);
+        var product = convertEntityToVO(save);
+        productSendMessage.sendMessage(product);
+        return product;
     }
 
     public Page<ProductVO> findAll(Pageable pageable) {
